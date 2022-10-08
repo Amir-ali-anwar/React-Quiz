@@ -22,7 +22,11 @@ const AppProvider = ({ children }) => {
   const [error, SetError] = useState(false);
   const [correct, SetCorrect] = useState(0);
   const [isModalOpen, SetisModalOpen] = useState(false);
-  // console.log('questions length',questions.length);
+  const [quiz, Setquiz]=useState({
+    category:'sports',
+    difficulty:'easy',
+    amount: 10,
+  }) 
   const fetchQuestions = async (url) => {
     SetWaiting(false);
     SetLoading(true);
