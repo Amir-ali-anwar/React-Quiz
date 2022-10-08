@@ -43,9 +43,9 @@ const AppProvider = ({ children }) => {
     } catch (error) {}
   };
  
-  useEffect(() => {
-    fetchQuestions(tempUrl);
-  }, []);
+  // useEffect(() => {
+  //   fetchQuestions(tempUrl);
+  // }, []);
   const nextQuestion = () => {
     SetIndex((previndex) => {
       const index = previndex + 1;
@@ -67,9 +67,19 @@ const AppProvider = ({ children }) => {
     SetCorrect(0);
     SetisModalOpen(false);
   };
-   const handleChange = () => {};
+   const handleChange = (e) => {
+    const name= e.target.name;
+    const value= e.target.value;
+    Setquiz({
+      ...quiz,
+      [name]:value
+    });
+   };
    const handleSubmit = (e) => {
     e.preventDefault();
+    const {category,difficulty,amount}=quiz
+    const url = `${API_ENDPOINT}amount=${amount}&difficulty=${difficulty}&category=${table[category]}&type=multiple`;
+    fetchQuestions(url);
      console.log(e);
    };
   const checkAnswer = (value) => {
