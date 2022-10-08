@@ -22,6 +22,7 @@ const AppProvider = ({ children }) => {
   const [error, SetError] = useState(false);
   const [correct, SetCorrect] = useState(0);
   const [isModalOpen, SetisModalOpen] = useState(false);
+  // console.log('questions length',questions.length);
   const fetchQuestions = async (url) => {
     SetWaiting(false);
     SetLoading(true);
@@ -43,18 +44,21 @@ const AppProvider = ({ children }) => {
   const nextQuestion = () => {
     SetIndex((previndex) => {
       const index = previndex + 1;
-      if(index >questions.length-1){
-        openModal()
-        return 0
+      if (index > questions.length - 1) {
+        console.log('last index');
+        console.log('modal open', isModalOpen);
+        openModal();
+        return 0;
+      } else {
+        return index;
       }
-      return index;
     });
   };
-  const openModal=()=>{
+  const openModal = () => {
     SetisModalOpen(true);
-  }
+  };
   const closeModal = () => {
-    SetWaiting(true)
+    SetWaiting(true);
     SetCorrect(0);
     SetisModalOpen(false);
   };

@@ -13,6 +13,7 @@ function App() {
     correct,
     nextQuestion,
     checkAnswer,
+    openModal
   } = useGlobalContext();
   if (waiting) {
     return <SetupForm />;
@@ -25,6 +26,7 @@ function App() {
   const answers = [correct_answer, ...incorrect_answers];
   return (
     <main>
+      <Modal />
       <section className="quiz">
         <p className="correct-answers">
           correct answers : {correct}/{index}
@@ -47,6 +49,7 @@ function App() {
         <button className="next-question" onClick={nextQuestion}>
           next question
         </button>
+        <button onClick={openModal}>open modal</button>
       </section>
     </main>
   );
