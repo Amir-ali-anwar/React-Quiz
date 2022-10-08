@@ -42,6 +42,7 @@ const AppProvider = ({ children }) => {
       }
     } catch (error) {}
   };
+ 
   useEffect(() => {
     fetchQuestions(tempUrl);
   }, []);
@@ -66,6 +67,11 @@ const AppProvider = ({ children }) => {
     SetCorrect(0);
     SetisModalOpen(false);
   };
+   const handleChange = () => {};
+   const handleSubmit = (e) => {
+    e.preventDefault();
+     console.log(e);
+   };
   const checkAnswer = (value) => {
     if (value) {
       SetCorrect((oldanswer) => oldanswer + 1);
@@ -81,11 +87,14 @@ const AppProvider = ({ children }) => {
         index,
         error,
         correct,
+        quiz,
         isModalOpen,
         nextQuestion,
         checkAnswer,
         openModal,
         closeModal,
+        handleChange,
+        handleSubmit,
       }}
     >
       {children}

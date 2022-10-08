@@ -49,6 +49,7 @@ function App() {
         <button className="next-question" onClick={nextQuestion}>
           next question
         </button>
+        <button onClick={openModal}>open modal</button>
       </section>
     </main>
   );
