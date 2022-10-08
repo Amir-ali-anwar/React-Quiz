@@ -25,25 +25,45 @@ const AppProvider = ({ children }) => {
   const fetchQuestions = async (url) => {
     SetWaiting(false);
     SetLoading(true);
-    
+
     try {
       const response = await axios(url);
-     const data= response.data.results
-     if(data.length>1){
-       SetQuestion(data);
-       SetWaiting(false);
-       SetLoading(false);
-       SetError(false);
-
-        
-     }
-    } catch (error) {
-
-    }
+      const data = response.data.results;
+      if (data.length > 1) {
+        SetQuestion(data);
+        SetWaiting(false);
+        SetLoading(false);
+        SetError(false);
+      }
+    } catch (error) {}
   };
   useEffect(() => {
     fetchQuestions(tempUrl);
   }, []);
+  const nextQuestion = () => {
+    SetIndex((previndex) => {
+      const index = previndex + 1;
+      if(index >questions.length-1){
+        openModal()
+        return 0
+      }
+      return index;
+    });
+  };
+  const openModal=()=>{
+    SetisModalOpen(true);
+  }
+  const closeModal = () => {
+    SetWaiting(true)
+    SetCorrect(0);
+    SetisModalOpen(false);
+  };
+  const checkAnswer = (value) => {
+    if (value) {
+      SetCorrect((oldanswer) => oldanswer + 1);
+    }
+    nextQuestion();
+  };
   return (
     <AppContext.Provider
       value={{
@@ -54,6 +74,10 @@ const AppProvider = ({ children }) => {
         error,
         correct,
         isModalOpen,
+        nextQuestion,
+        checkAnswer,
+        openModal,
+        closeModal,
       }}
     >
       {children}
